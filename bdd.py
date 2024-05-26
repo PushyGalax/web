@@ -101,6 +101,17 @@ class bdd:
             lis.append((elem[0], elem[1], str(info[0]), elem[3], elem[4]))
         return lis
     
+    def get_concerts_by_morceau(self, morc):
+        print(requete.select_triple_join.format("nom_concert, date_concert, id_salle","id_concert","jouer","concert.id_concert","jouer.id_concert","morceau","morceau.id_morceau","jouer.id_morceau","compositeur","morceau.id_compositeur","compositeur.id_compositeur","nom_compositeur",f"'{morc}'"))
+        self.curs.execute(requete.select_double_join.format("nom_concert, date_concert, id_salle, concert.id_concert, genre_concert","concert","jouer","concert.id_concert","jouer.id_concert","morceau","morceau.id_morceau","jouer.id_morceau","nom_morceau",f"'{morc}'")) #################################
+        lis=[]
+        for elem in self.curs.fetchall():
+            print(requete.select_join.format("adresse, ville, code_postale", "batiment", "salle", "salle.id_batiment", "batiment.id_batiment", "id_salle", f"'{elem[2]}'"))
+            self.curs.execute(requete.select_join.format("adresse, ville, code_postale", "batiment", "salle", "salle.id_batiment", "batiment.id_batiment", "id_salle", f"'{elem[2]}'"))
+            info=self.curs.fetchall()
+            lis.append((elem[0], elem[1], str(info[0]), elem[3], elem[4]))
+        return lis
+    
     def get_concert_details(self,id_):
         """
             <li><strong>Date :</strong> ${concert.date}</li>

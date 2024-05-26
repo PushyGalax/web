@@ -57,11 +57,19 @@ class SymphonicaSonata:
     
     @cherrypy.expose
     @cherrypy.tools.allow(methods=['POST'])
-    def Recherche(self, composer=None):
+    def Recherche_par_compositeur(self, composer=None):
         concerts = sql.get_concerts_by_composer(composer)
         tmpl = self.lookup.get_template("Recherche.html")
-        ph=f"Concerts en lien avec : {composer}"
-        return tmpl.render(ph = ph, composer=composer, concerts=concerts)
+        ph=f"Concerts du compositeur : {composer}"
+        return tmpl.render(ph = ph, concerts=concerts)
+    
+    @cherrypy.expose
+    @cherrypy.tools.allow(methods=['POST'])
+    def Recherche_par_morceau(self, morceau=None):
+        concerts = sql.get_concerts_by_morceau(morceau)
+        tmpl = self.lookup.get_template("Recherche.html")
+        ph=f"Concerts contenant le morceau : {morceau}"
+        return tmpl.render(ph = ph, concerts=concerts)
     
     @cherrypy.expose
     def adminPage(self):

@@ -5,7 +5,7 @@ STOP_RENDERING = runtime.STOP_RENDERING
 __M_dict_builtin = dict
 __M_locals_builtin = locals
 _magic_number = 10
-_modified_time = 1716736047.7384932
+_modified_time = 1716737275.7738154
 _enable_loop = True
 _template_filename = 'template/affParMorceau.html'
 _template_uri = 'affParMorceau.html'
@@ -37,14 +37,14 @@ def render_body(context,**pageargs):
         __M_writer('\r\n\r\n')
         __M_writer('\r\n\r\n<script>\r\n    var morceaux = ')
         __M_writer(str(json.dumps(morceaux)))
-        __M_writer(';\r\n\r\n    function displayMorceau() {\r\n        var dropdown = document.getElementById("morceauDropdown");\r\n        var output = document.getElementById("selectedMorceau");\r\n\r\n        var selectedMorceau = dropdown.options[dropdown.selectedIndex].text;\r\n        output.innerHTML = selectedMorceau;\r\n    }\r\n</script>\r\n\r\n<div class="container">\r\n    <h2>Choisissez un morceau</h2>\r\n    <form action="Recherche" method="post">\r\n        <select id="morceauDropdown" name="morceau" class="form-control" onchange="displayMorceau()">\r\n            <option value="">Sélectionnez un morceau</option>\r\n')
+        __M_writer(';\r\n\r\n    function displayMorceau() {\r\n        var dropdown = document.getElementById("morceauDropdown");\r\n        var output = document.getElementById("selectedMorceau");\r\n\r\n        var selectedMorceau = dropdown.options[dropdown.selectedIndex].text;\r\n        output.innerHTML = selectedMorceau;\r\n    }\r\n</script>\r\n\r\n<div class="container">\r\n    <h2>Choisissez un morceau</h2>\r\n    <form action="Recherche_par_morceau" method="post">\r\n        <select id="morceauDropdown" name="morceau" class="form-control" onchange="displayMorceau()">\r\n            <option value="">Sélectionnez un morceau</option>\r\n')
         for morceau in morceaux:
             __M_writer('                <option value="')
             __M_writer(str(morceau))
             __M_writer('">')
             __M_writer(str(morceau))
             __M_writer('</option>\r\n')
-        __M_writer('        </select>\r\n        <p>Compositeur sélectionné : <span id="selectedMorceau"></span></p>\r\n        <button type="submit" class="btn btn-primary">Valider</button>\r\n    </form>\r\n</div>\r\n')
+        __M_writer('        </select>\r\n        <p>morceau sélectionné : <span id="selectedMorceau"></span></p>\r\n        <button type="submit" class="btn btn-primary">Valider</button>\r\n    </form>\r\n</div>\r\n')
         return ''
     finally:
         context.caller_stack._pop_frame()

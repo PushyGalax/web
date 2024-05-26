@@ -5,7 +5,7 @@ STOP_RENDERING = runtime.STOP_RENDERING
 __M_dict_builtin = dict
 __M_locals_builtin = locals
 _magic_number = 10
-_modified_time = 1716735739.4416208
+_modified_time = 1716736867.3304482
 _enable_loop = True
 _template_filename = 'template/affParCompositeur.html'
 _template_uri = 'affParCompositeur.html'
@@ -37,7 +37,7 @@ def render_body(context,**pageargs):
         __M_writer('\r\n\r\n')
         __M_writer('\r\n\r\n<script>\r\n    var compositeurs = ')
         __M_writer(str(json.dumps(compositeurs)))
-        __M_writer(';\r\n\r\n    function displayComposer() {\r\n        var dropdown = document.getElementById("composerDropdown");\r\n        var output = document.getElementById("selectedComposer");\r\n\r\n        var selectedComposer = dropdown.options[dropdown.selectedIndex].text;\r\n        output.innerHTML = selectedComposer;\r\n    }\r\n</script>\r\n\r\n<div class="container">\r\n    <h2>Choisissez un compositeur</h2>\r\n    <form action="Recherche" method="post">\r\n        <select id="composerDropdown" name="composer" class="form-control" onchange="displayComposer()">\r\n            <option value="">Sélectionnez un compositeur</option>\r\n')
+        __M_writer(';\r\n\r\n    function displayComposer() {\r\n        var dropdown = document.getElementById("composerDropdown");\r\n        var output = document.getElementById("selectedComposer");\r\n\r\n        var selectedComposer = dropdown.options[dropdown.selectedIndex].text;\r\n        output.innerHTML = selectedComposer;\r\n    }\r\n</script>\r\n\r\n<div class="container">\r\n    <h2>Choisissez un compositeur</h2>\r\n    <form action="Recherche_par_compositeur" method="post">\r\n        <select id="composerDropdown" name="composer" class="form-control" onchange="displayComposer()">\r\n            <option value="">Sélectionnez un compositeur</option>\r\n')
         for composer in compositeurs:
             __M_writer('                <option value="')
             __M_writer(str(composer))
