@@ -1,0 +1,19 @@
+<%inherit file="template.html"/>
+
+<div class="container">
+    <h2>${ph}</h2>
+    % if concerts:
+        % for concert in concerts:
+            <div class="concert-card" onclick="window.location.href='/concertDetails?id_=${concert[3]}'">
+                <img src="/static/assets/${concert[0]}.png" alt="Image de ${concert[4]}" class="concert-image">
+                <div class="concert-details">
+                    <h4>${concert[0]}</h4>
+                    <p>${concert[1]}</p>
+                    <p>${concert[2]}</p>
+                </div>
+            </div>
+        % endfor
+    % else:
+        <p>Aucun concert trouvé pour ce compositeur.</p>
+    % endif
+</div>

@@ -1,0 +1,23 @@
+<%inherit file="template.html"/>
+
+<div class="container">
+    <h2>Détails du concert : ${concert_[8]}</h2>
+    <img src="/static/assets/${concert_[6]}" alt="Image de ${concert_[8]}" class="img-fluid">
+    <ul>
+        <li><strong>Date :</strong> ${concert_[0]}</li>
+        <li><strong>Lieu :</strong> ${concert_[1]}</li>
+        <li><strong>Formation :</strong> ${concert_[2]}</li>
+        <li><strong>Chef d'orchestre :</strong> ${concert_[3]}</li>
+        <li><strong>Soliste :</strong> ${concert_[4]}</li>
+        <li><strong>Prix :</strong> ${concert_[5]}€</li>
+        <li><strong>Genre :</strong> ${concert_[6]}</li>
+        <li><strong>Durée :</strong> ${concert_[7]} minutes</li>
+        <li><strong>Morceaux :</strong>
+            <ul>
+                % for morceau in morc:
+                    <li>${morceau}</li>
+                % endfor
+            </ul>
+        </li>
+    </ul>
+</div>

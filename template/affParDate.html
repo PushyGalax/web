@@ -1,0 +1,31 @@
+<%inherit file="template.html"/>
+
+<%!
+    import json
+%>
+
+<script>
+    var compositeurs = ${json.dumps(compositeurs)};
+
+    function displayComposer() {
+        var dropdown = document.getElementById("composerDropdown");
+        var output = document.getElementById("selectedComposer");
+
+        var selectedComposer = dropdown.options[dropdown.selectedIndex].text;
+        output.innerHTML = selectedComposer;
+    }
+</script>
+
+<div class="container">
+    <h2>Choisissez un compositeur</h2>
+    <form action="RechercheParCompositeur" method="post">
+        <select id="composerDropdown" name="composer" class="form-control" onchange="displayComposer()">
+            <option value="">Sélectionnez un compositeur</option>
+            % for composer in compositeurs:
+                <option value="${composer}">${composer}</option>
+            % endfor
+        </select>
+        <p>Compositeur sélectionné : <span id="selectedComposer"></span></p>
+        <button type="submit" class="btn btn-primary">Valider</button>
+    </form>
+</div>

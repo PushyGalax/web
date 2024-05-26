@@ -1,0 +1,31 @@
+<%inherit file="template.html"/>
+
+<%!
+    import json
+%>
+
+<script>
+    var morceaux = ${json.dumps(morceaux)};
+
+    function displayMorceau() {
+        var dropdown = document.getElementById("morceauDropdown");
+        var output = document.getElementById("selectedMorceau");
+
+        var selectedMorceau = dropdown.options[dropdown.selectedIndex].text;
+        output.innerHTML = selectedMorceau;
+    }
+</script>
+
+<div class="container">
+    <h2>Choisissez un morceau</h2>
+    <form action="Recherche" method="post">
+        <select id="morceauDropdown" name="morceau" class="form-control" onchange="displayMorceau()">
+            <option value="">Sélectionnez un morceau</option>
+            % for morceau in morceaux:
+                <option value="${morceau}">${morceau}</option>
+            % endfor
+        </select>
+        <p>morceau sélectionné : <span id="selectedMorceau"></span></p>
+        <button type="submit" class="btn btn-primary">Valider</button>
+    </form>
+</div>
