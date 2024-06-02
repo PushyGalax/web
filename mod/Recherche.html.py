@@ -5,7 +5,7 @@ STOP_RENDERING = runtime.STOP_RENDERING
 __M_dict_builtin = dict
 __M_locals_builtin = locals
 _magic_number = 10
-_modified_time = 1716735740.9859989
+_modified_time = 1717082899.430255
 _enable_loop = True
 _template_filename = 'template/Recherche.html'
 _template_uri = 'Recherche.html'
@@ -51,7 +51,7 @@ def render_body(context,**pageargs):
                 __M_writer(str(concert[2]))
                 __M_writer('</p>\r\n                </div>\r\n            </div>\r\n')
         else:
-            __M_writer('        <p>Aucun concert trouvé pour ce compositeur.</p>\r\n')
+            __M_writer('        <p>Aucun concert trouvé pour ce critère.</p>\r\n')
         __M_writer('</div>\r\n')
         return ''
     finally:

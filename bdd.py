@@ -62,14 +62,18 @@ class bdd:
             print("La données n'a pas pu être supprimer.\nIl est possible que l'identificateur donné soit erroné.")
     
     def info_index(self):
-        self.curs.execute(requete.select_key.format("nom_concert, date_concert, formation, nb_place_restante, prix_place","concert"))
+        # requette pour récupérer les infos suivantes, nom_concert_date_concert, nom_salle
+        self.curs.execute(requete.select_join.format("nom_concert, date_concert, nom_salle","concert","salle","concert.id_salle","salle.id_salle","1","1")+" ORDER BY date_concert")
         valeur=self.curs.fetchall()
-        dat=datetime.date(datetime.datetime.now().year,datetime.datetime.now().month,datetime.datetime.now().day)
-        print(dat)
+        dat=datetime.datetime.now().date()
         conc=[]
+        cpt=0
         for elem in valeur:
+            if cpt==3:
+                break
             if elem[1] > dat:
                 conc.append(elem)
+                cpt+=1
         conc= sorted(conc, key=lambda x: x[1])
         return conc
             
@@ -86,6 +90,10 @@ class bdd:
         lis=[]
         for elem in self.curs.fetchall():
             lis.append(elem[0])
+        return lis
+    
+    def return_all_genre(self):
+        lis=['symphonique','vent','corde','duo','trio','quatuor','soliste','rock','électro','traditionnelle','spéciale']
         return lis
 
 
@@ -112,6 +120,55 @@ class bdd:
             lis.append((elem[0], elem[1], str(info[0]), elem[3], elem[4]))
         return lis
     
+    def get_concerts_by_genre(self, genre):
+        self.curs.execute(requete.select_with_where.format("nom_concert, date_concert, id_salle, concert.id_concert, genre_concert","concert","genre_concert",f"'{genre}'"))
+        lis=[]
+        for elem in self.curs.fetchall():
+            self.curs.execute(requete.select_join.format("adresse, ville, code_postale", "batiment", "salle", "salle.id_batiment", "batiment.id_batiment", "id_salle", f"'{elem[2]}'"))
+            info=self.curs.fetchall()
+            lis.append((elem[0], elem[1], str(info[0]), elem[3], elem[4]))
+        return lis
+    
+    def get_concerts_by_date(self, date):
+        self.curs.execute(requete.select_with_where_supp.format("nom_concert, date_concert, id_salle, concert.id_concert, genre_concert","concert","date_concert",f"'{date}'"))
+        lis=[]
+        for elem in self.curs.fetchall():
+            self.curs.execute(requete.select_join.format("adresse, ville, code_postale", "batiment", "salle", "salle.id_batiment", "batiment.id_batiment", "id_salle", f"'{elem[2]}'"))
+            info=self.curs.fetchall()
+            lis.append((elem[0], elem[1], str(info[0]), elem[3], elem[4]))
+        return lis
+    
+    def delete_entry(self, table, id_):
+        self.curs.execute(requete.deletedata.format(table, f"id_{table}", f"'{id_}'"))
+        self.bd.commit()
+    
+    def get_table_content(self, table):
+        query = f"SELECT * FROM {table}"
+        self.curs.execute(query)
+        content = self.curs.fetchall()
+        
+        
+        self.curs.execute(f"SHOW COLUMNS FROM {table}")
+        headers = [column[0] for column in self.curs.fetchall()]
+
+        return headers, content
+    
+    def get_table_content_insert(self, table):
+        query = f"SELECT * FROM {table}"
+        self.curs.execute(query)
+        content = self.curs.fetchall()
+        
+        
+        self.curs.execute(f"SHOW COLUMNS FROM {table}")
+        headers = [column[0] for column in self.curs.fetchall()]
+
+        return headers, content
+    
+    def get_foreign_key_options(self, foreign_table):
+        query = f"SELECT id_{foreign_table}, nom_{foreign_table} FROM {foreign_table}"
+        self.curs.execute(query)
+        return [{"value": row[0], "display": row[1]} for row in self.curs.fetchall()]
+    
     def get_concert_details(self,id_):
         """
             <li><strong>Date :</strong> ${concert.date}</li>
@@ -123,13 +180,32 @@ class bdd:
             <li><strong>Genre :</strong> ${concert.genre}</li>
             <li><strong>Durée :</strong> ${concert.duree} minutes</li>
         """
-        self.curs.execute(requete.select_with_where.format("date_concert, formation, chef_d_orchestre, soliste, prix_place, genre_concert, durée_concert, id_salle, nom_concert", "concert", "id_concert", f"'{id_}'"))
+        self.curs.execute(requete.select_with_where.format("date_concert, formation, chef_d_orchestre, soliste, prix_place, genre_concert, durée_concert, id_salle, nom_concert,nb_place_restante,id_concert", "concert", "id_concert", f"'{id_}'"))
         lis=[]
         for elem in self.curs.fetchall():
             self.curs.execute(requete.select_join.format("adresse, ville, code_postale", "batiment", "salle", "salle.id_batiment", "batiment.id_batiment", "id_salle", f"'{elem[7]}'"))
             info=self.curs.fetchall()
-            lis.append((elem[0], str(info[0]), elem[1], elem[2], elem[3], elem[4], elem[5], elem[6], elem[8]))
+            lis.append((elem[0], str(info[0]), elem[1], elem[2], elem[3], elem[4], elem[5], elem[6], elem[8], elem[9], elem[10]))
         # print("---------------------------------"+'\n'+str(lis)+'\n\n')
+        return lis
+    
+    def reserver(self, id_, nom, prenom):
+        self.curs.execute(requete.request_ajout.format("reservation",requete.valeur["reservation"],f"NULL,'{id_}','{nom}','{prenom}'"))
+        # met à jour le nombre de place restante
+        self.curs.execute(requete.select_with_where.format("nb_place_restante","concert","id_concert",f"'{id_}'"))
+        nb_place = self.curs.fetchall()[0][0]
+        self.curs.execute(requete.update.format("concert","nb_place_restante",f"'{nb_place-1}'",f"id_concert",f"'{id_}'"))
+        self.bd.commit()
+        # selectionner le nom du concert d'id = id_
+        self.curs.execute(requete.select_with_where.format("nom_concert","concert","id_concert",f"'{id_}'"))
+        return nom, prenom, self.curs.fetchall()[0][0]
+    
+    def showrese(self):
+        # revoie une liste de tuple (nom, prenom, concert) trier par nom de concert
+        self.curs.execute(requete.select_join.format("nom_reservation, prenom_reservation, nom_concert","reservation","concert","reservation.id_concert","concert.id_concert","1","1")+" ORDER BY nom_concert")
+        lis=[]
+        for elem in self.curs.fetchall():
+            lis.append((elem[0], elem[1], elem[2]))
         return lis
     
     def get_concert_prg(self, id_):
@@ -138,6 +214,14 @@ class bdd:
         for elem in self.curs.fetchall():
             lis.append(elem[0])
         return lis
+    
+    def update_entry(self, entry_id, data):
+        columns = ', '.join(f"{key} = %s" for key in data)
+        values = list(data.values())
+        values.append(entry_id)
+        query = f"UPDATE entries SET {columns} WHERE id = %s"
+        self.cursor.execute(query, values)
+        self.conn.commit()
         
     def showall(self, table):
         """
@@ -435,20 +519,24 @@ class bdd:
         - Cette méthode génère et exécute une requête INSERT INTO pour ajouter une nouvelle entrée dans une table (`table`)
         avec les valeurs spécifiées (`args`).
         """
+        print("\n\n\n\n\n")
+        print(args)
+        print("\n\n\n\n\n")
+        lis=args[0]
         if table not in ["jouer","reservation"]:
             val="NULL,"
-            for elem in range(len(args)):
-                if args[elem][-1]=="µ":
-                    val+=f"{args[elem][:-1]},"
+            for elem in range(len(lis)):
+                if lis[elem][-1]=="µ":
+                    val+=f"{lis[elem][:-1]},"
                 else:
-                    val+=f"'{args[elem]}',"
+                    val+=f"'{lis[elem]}',"
         else:
             val=""
-            for elem in range(len(args)):
-                if args[elem][-1]=="µ":
-                    val+=f"{args[elem][:-1]},"
+            for elem in range(len(lis)):
+                if lis[elem][-1]=="µ":
+                    val+=f"{lis[elem][:-1]},"
                 else:
-                    val+=f"'{args[elem]}',"
+                    val+=f"'{lis[elem]}',"
 
         
         print(requete.request_ajout.format(table,requete.valeur[table],val[:-1]))

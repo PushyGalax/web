@@ -5,27 +5,23 @@
 %>
 
 <script>
-    var compositeurs = ${json.dumps(compositeurs)};
+    function displayDate() {
+        var dropdown = document.getElementById("concertDate");
+        var output = document.getElementById("selecteddate");
 
-    function displayComposer() {
-        var dropdown = document.getElementById("composerDropdown");
-        var output = document.getElementById("selectedComposer");
-
-        var selectedComposer = dropdown.options[dropdown.selectedIndex].text;
-        output.innerHTML = selectedComposer;
+        var selecteddate = dropdown.value;
+        output.innerHTML = selecteddate;
     }
 </script>
 
 <div class="container">
-    <h2>Choisissez un compositeur</h2>
-    <form action="RechercheParCompositeur" method="post">
-        <select id="composerDropdown" name="composer" class="form-control" onchange="displayComposer()">
-            <option value="">Sélectionnez un compositeur</option>
-            % for composer in compositeurs:
-                <option value="${composer}">${composer}</option>
-            % endfor
-        </select>
-        <p>Compositeur sélectionné : <span id="selectedComposer"></span></p>
+    <h2>Choisissez une date de concert</h2>
+    <form action="Recherche_par_date" method="post">
+        <div class="form-group">
+            <label for="concertDate">Date de concert</label>
+            <input type="date" id="concertDate" name="concertDate" class="form-control" onchange="displayDate()" required>
+        </div>
+        <p>date sélectionné : <span id="selecteddate"></span></p>
         <button type="submit" class="btn btn-primary">Valider</button>
     </form>
 </div>

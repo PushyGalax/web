@@ -5,7 +5,7 @@ STOP_RENDERING = runtime.STOP_RENDERING
 __M_dict_builtin = dict
 __M_locals_builtin = locals
 _magic_number = 10
-_modified_time = 1716734947.8630364
+_modified_time = 1717173084.0470803
 _enable_loop = True
 _template_filename = 'template/concertDetails.html'
 _template_uri = 'concertDetails.html'
@@ -31,6 +31,14 @@ def render_body(context,**pageargs):
         concert_ = context.get('concert_', UNDEFINED)
         morc = context.get('morc', UNDEFINED)
         __M_writer = context.writer()
+        __M_writer('\r\n\r\n')
+
+        from datetime import datetime
+        concert_passed = concert_[0] < datetime.now().date()
+        
+        
+        __M_locals_builtin_stored = __M_locals_builtin()
+        __M_locals.update(__M_dict_builtin([(__M_key, __M_locals_builtin_stored[__M_key]) for __M_key in ['datetime','concert_passed'] if __M_key in __M_locals_builtin_stored]))
         __M_writer('\r\n\r\n<div class="container">\r\n    <h2>Détails du concert : ')
         __M_writer(str(concert_[8]))
         __M_writer('</h2>\r\n    <img src="/static/assets/')
@@ -58,7 +66,12 @@ def render_body(context,**pageargs):
             __M_writer('                    <li>')
             __M_writer(str(morceau))
             __M_writer('</li>\r\n')
-        __M_writer('            </ul>\r\n        </li>\r\n    </ul>\r\n</div>\r\n')
+        __M_writer('            </ul>\r\n        </li>\r\n    </ul>\r\n')
+        if concert_[9] > 0 and not concert_passed:
+            __M_writer('        <form action="reserver" method="post">\r\n            <input type="hidden" name="concert_id" value="')
+            __M_writer(str(concert_[10]))
+            __M_writer('">\r\n            <button type="submit" class="btn btn-primary">Réserver</button>\r\n        </form>\r\n')
+        __M_writer('</div>\r\n')
         return ''
     finally:
         context.caller_stack._pop_frame()
@@ -66,6 +79,6 @@ def render_body(context,**pageargs):
 
 """
 __M_BEGIN_METADATA
-{"filename": "template/concertDetails.html", "uri": "concertDetails.html", "source_encoding": "utf-8", "line_map": {"27": 0, "34": 1, "35": 4, "36": 4, "37": 5, "38": 5, "39": 5, "40": 5, "41": 7, "42": 7, "43": 8, "44": 8, "45": 9, "46": 9, "47": 10, "48": 10, "49": 11, "50": 11, "51": 12, "52": 12, "53": 13, "54": 13, "55": 14, "56": 14, "57": 17, "58": 18, "59": 18, "60": 18, "61": 20, "67": 61}}
+{"filename": "template/concertDetails.html", "uri": "concertDetails.html", "source_encoding": "utf-8", "line_map": {"27": 0, "34": 1, "35": 3, "36": 4, "37": 5, "38": 6, "39": 7, "42": 6, "43": 9, "44": 9, "45": 10, "46": 10, "47": 10, "48": 10, "49": 12, "50": 12, "51": 13, "52": 13, "53": 14, "54": 14, "55": 15, "56": 15, "57": 16, "58": 16, "59": 17, "60": 17, "61": 18, "62": 18, "63": 19, "64": 19, "65": 22, "66": 23, "67": 23, "68": 23, "69": 25, "70": 28, "71": 29, "72": 30, "73": 30, "74": 34, "80": 74}}
 __M_END_METADATA
 """

@@ -1,0 +1,57 @@
+<%inherit file="template.html"/>
+
+<div class="container">
+    <h2>Insertion dans la table : ${table}</h2>
+    <form action="insertEntry" method="post">
+        % for header in headers:
+            % if not header["is_primary_key"]:
+                <div class="form-group">
+                    <label for="${header['name']}">${header['name']}</label>
+                    % if header["is_foreign_key"]:
+                        <select class="form-control" id="${header['name']}" name="${header['name']}" required>
+                            % for option in header["options"]:
+                                <option value="${option['value']}">${option['display']}</option>
+                            % endfor
+                        </select>
+                    % else:
+                        % if header["name"] == "date_composition":
+                            <input type="text" class="form-control" id="${header['name']}" name="${header['name']}" size="4" placeholder="0000" pattern="[0-9]{4}" required>
+                        % else:
+                            % if header["name"] == "formation":
+                                <select class="form-control" id="${header['name']}" name="${header['name']}" required>
+                                    % for elem in ['orchestre symphonique','orchestre à vent','orchestre à corde','duo','trio','quatuor','soliste','rock','traditionnelle','électro','spéciale']:
+                                        <option value="${elem}">${elem}</option>
+                                    % endfor
+                                </select>
+                            % else:
+                                % if header["name"] == "genre_concert":
+                                <select class="form-control" id="${header['name']}" name="${header['name']}" required>
+                                    % for elem in ['symphonique','vent','corde','duo','trio','quatuor','soliste','rock','électro','traditionnelle','spéciale']:
+                                        <option value="${elem}">${elem}</option>
+                                    % endfor
+                                </select>
+                                % else:
+                                    % if header["name"] == "genre":
+                                    <select class="form-control" id="${header['name']}" name="${header['name']}" required>
+                                        % for elem in ['concerto','composition','symphonie','duo','trio','sonate','quatuor','soliste','rock','électro','traditionnelle','spéciale']:
+                                            <option value="${elem}">${elem}</option>
+                                        % endfor
+                                    </select>
+                                    % else:
+                                        % if "date" in header["name"]:
+                                            <input type="date" id="${header['name']}" name="${header['name']}" class="form-control"required>
+                                        % else:
+                                            <input type="text" class="form-control" id="${header['name']}" name="${header['name']}" required>
+                                        % endif
+                                    % endif
+                                % endif
+                            % endif
+                        % endif
+                    % endif
+                </div>
+            % endif
+        % endfor
+        <input type="hidden" name="table" value="${table}">
+        <button type="submit" class="btn btn-primary">Insérer</button>
+    </form>
+</div>

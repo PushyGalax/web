@@ -1,0 +1,31 @@
+<%inherit file="template.html"/>
+
+<%!
+    import json
+%>
+
+<script>
+    var genres = ${json.dumps(genres)};
+
+    function displayGenre() {
+        var dropdown = document.getElementById("genreDropdown");
+        var output = document.getElementById("selectedGenre");
+
+        var selectedGenre = dropdown.options[dropdown.selectedIndex].text;
+        output.innerHTML = selectedGenre;
+    }
+</script>
+
+<div class="container">
+    <h2>Choisissez un genre</h2>
+    <form action="Recherche_par_genre" method="post">
+        <select id="genreDropdown" name="genre" class="form-control" onchange="displayGenre()">
+            <option value="">Sélectionnez un genre</option>
+            % for genre in genres:
+                <option value="${genre}">${genre}</option>
+            % endfor
+        </select>
+        <p>Genre sélectionné : <span id="selectedGenre"></span></p>
+        <button type="submit" class="btn btn-primary">Valider</button>
+    </form>
+</div>

@@ -1,0 +1,17 @@
+<%inherit file="template.html"/>
+
+<div class="container">
+    <h2>Mettre à jour les informations</h2>
+    <form action="/submitUpdate" method="post">
+        <input type="hidden" name="entry_id" value="${entry['id']}">
+        % for key, value in entry.items():
+            % if field != 'id':
+                <div class="form-group">
+                    <label for="${field}">${field.capitalize()}</label>
+                    <input type="text" class="form-control" id="${field}" name="${field}" value="${value}" required>
+                </div>
+            % endif
+        % endfor
+        <button type="submit" class="btn btn-primary">Mettre à jour</button>
+    </form>
+</div>

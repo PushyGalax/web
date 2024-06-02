@@ -1,5 +1,10 @@
 <%inherit file="template.html"/>
 
+<%
+    from datetime import datetime
+    concert_passed = concert_[0] < datetime.now().date()
+%>
+
 <div class="container">
     <h2>Détails du concert : ${concert_[8]}</h2>
     <img src="/static/assets/${concert_[6]}" alt="Image de ${concert_[8]}" class="img-fluid">
@@ -20,4 +25,10 @@
             </ul>
         </li>
     </ul>
+    % if concert_[9] > 0 and not concert_passed:
+        <form action="reserver" method="post">
+            <input type="hidden" name="concert_id" value="${concert_[10]}">
+            <button type="submit" class="btn btn-primary">Réserver</button>
+        </form>
+    % endif
 </div>

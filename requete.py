@@ -43,7 +43,7 @@ creation = ["CREATE DATABASE IF NOT EXISTS sae_23",
             "nom_morceau varchar(400) NOT NULL,"\
             "date_composition varchar(4) DEFAULT NULL COMMENT 'année',"\
             "durée_morceau float NOT NULL COMMENT 'minutes',"\
-            "genre enum('concerto','composition','symphonie','sonate','quatuor','rock','électro','traditionnelle','spéciale') NOT NULL,"\
+            "genre enum('concerto','composition','symphonie','duo','trio','sonate','quatuor','soliste','rock','électro','traditionnelle','spéciale') NOT NULL,"\
             "lieu_compo varchar(200) DEFAULT NULL,"\
             "INDEX (id_compositeur),"\
             "CONSTRAINT FK_id_compositeur FOREIGN KEY (id_compositeur) REFERENCES compositeur(id_compositeur) ON DELETE CASCADE ON UPDATE CASCADE);",
@@ -61,8 +61,7 @@ creation = ["CREATE DATABASE IF NOT EXISTS sae_23",
             "id_concert int(11) NOT NULL,"\
             "nom_reservation varchar(150) NOT NULL,"\
             "prenom_reservation varchar(150) NOT NULL,"\
-            "place int(11) DEFAULT NULL,"\
-            "UNIQUE (id_concert),"\
+            "INDEX (id_concert),"\
             "CONSTRAINT FK_id_concert_deux FOREIGN KEY (id_concert) REFERENCES concert(id_concert) ON DELETE CASCADE ON UPDATE CASCADE);",
 ]
 
@@ -72,6 +71,7 @@ deletedata="DELETE FROM {} WHERE {} = {}"
 deletedoubleid="DELETE FROM {} WHERE id_{} = {} AND id_{} = {}"
 select_id_with_where="SELECT id_{} FROM {} WHERE id_{} = {}"
 select_with_where="SELECT DISTINCT {} FROM {} WHERE {} = {}"
+select_with_where_supp="SELECT DISTINCT {} FROM {} WHERE {} > {}"
 select_key="SELECT DISTINCT {} FROM {}"
 comp_inf="WHERE {} < {}"
 comp_sup="WHERE {} > {}"
@@ -87,5 +87,6 @@ valeur={
 "compositeur":"id_compositeur, nom_compositeur, date_naissance, date_mort, nb_morceau",
 "concert":"id_concert, id_salle, nom_concert, date_concert, formation, nb_place_restante, chef_d_orchestre, soliste, prix_place, visuel, durée_concert, genre_concert",
 "jouer":"id_concert, id_morceau",
-"morceau":"id_morceau, id_compositeur, nom_morceau, date_composition, durée_morceau, genre, lieu_compo"
+"morceau":"id_morceau, id_compositeur, nom_morceau, date_composition, durée_morceau, genre, lieu_compo",
+"reservation":"id_reservation, id_concert, nom_reservation, prenom_reservation"
 }

@@ -1,0 +1,35 @@
+<%inherit file="template.html"/>
+
+<div class="container">
+    <h2>Données de la table : ${table}</h2>
+    % if table_content:
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    % for header in headers:
+                        <th>${header}</th>
+                    % endfor
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                % for row in table_content:
+                    <tr>
+                        % for item in row:
+                            <td>${item}</td>
+                        % endfor
+                        <td>
+                            <form action="deleteEntry" method="post" style="display:inline;">
+                                <input type="hidden" name="table" value="${table}">
+                                <input type="hidden" name="id" value="${row[0]}">
+                                <button type="submit" class="btn btn-danger">Supprimer</button>
+                            </form>
+                        </td>
+                    </tr>
+                % endfor
+            </tbody>
+        </table>
+    % else:
+        <p>Aucune donnée trouvée pour cette table.</p>
+    % endif
+</div>

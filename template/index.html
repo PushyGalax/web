@@ -2,27 +2,16 @@
 <%doc> début de ce qui va être le "self.body()" ...  </%doc>
 
 
-<h1>WIP</h1>
-
-<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-    <ol class="carousel-indicators">
-      <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-      <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-      <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-    </ol>
-    <div class="carousel-inner">
-      % for i in range(3):
-        <div class="carousel-item active">
-          <img class="d-block" src="/static/assets/bannière_symphonica.webp">
+<div class="container mt-5">
+  <h2 class="mb-4">Prochains Concerts</h2>
+  % for concert in concerts:
+    <div class="concert-card">
+        <img src="/static/assets/concert1.jpg" alt="Concert" class="concert-image">
+        <div class="concert-details">
+            <h5>${concert[0]}</h5>
+            <p>Date : ${concert[1]}</p>
+            <p>Lieu : ${concert[2]}</p>
         </div>
-      % endfor
     </div>
-    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="sr-only">Previous</span>
-    </a>
-    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="sr-only">Next</span>
-    </a>
-  </div>
+  % endfor
+</div>

@@ -1,0 +1,18 @@
+<%inherit file="template.html"/>
+
+<div class="container">
+    % if rese:
+        % for re in rese:
+            <div class="concert-card">
+                <img src="/static/assets/scan.png" alt="Validation billet" class="concert-image">
+                <div class="concert-details">
+                    <h4>${re[2]}</h4>
+                    <p>${re[0]}</p>
+                    <p>${re[1]}</p>
+                </div>
+            </div>
+        % endfor
+    % else:
+        <p>pas de reservation</p>
+    % endif
+</div>
