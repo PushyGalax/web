@@ -1,7 +1,7 @@
 <%inherit file="template.html"/>
 
 <div class="container">
-    <h2>Données de la table : ${table}</h2>
+    <h2>Données de la table : ${table_name}</h2>
     % if table_content:
         <table class="table table-bordered">
             <thead>
@@ -20,7 +20,7 @@
                         % endfor
                         <td>
                             <form action="/updateForm" method="post" style="display:inline;">
-                                <input type="hidden" name="table" value="${table}">
+                                <input type="hidden" name="table_name" value="${table_name}">
                                 <input type="hidden" name="entry_id" value="${row[0]}">
                                 <button type="submit" class="btn btn-warning">Modifier</button>
                             </form>

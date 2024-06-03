@@ -1,20 +1,20 @@
 id_salle;nom_concert;date_concert;formation;nb_place_restante;chef_d_orchestre;soliste;prix_place;visuel;durée_concert;genre_concert
-Salle Léon Curral; 魔道祖师; 2024-06-12; traditionnelle; 500; NULL; NULL; 15; 1; 60; traditionnelle
-L_Olympia; 900K Live; 2024-03-25; électro; 2500; NULL; NULL; 20; 1; 90; électro
-Le MuzikHall; AronWorld; 2024-07-12; électro; 1200; NULL; NULL; 30; 1; 75; électro
-eglise saint germain des pres; Bach Que ma joie demeure; 2024-05-20; électro; 1350; NULL; NULL; NULL; 0; 30; symphonique
+Salle Léon Curral;魔道祖师;2024-06-12;traditionnelle;500;NULL;NULL;15;1;60;traditionnelle
+L_Olympia;900K Live;2024-03-25;électro;2500;NULL;NULL;20;1;90;électro
+Le MuzikHall;AronWorld;2024-07-12;électro;1200;NULL;NULL;30;1;75;électro
+eglise saint germain des pres;Bach Que ma joie demeure;2024-05-20;électro;1350;NULL;NULL;NULL;0;30;symphonique
 eglise saint germain des pres;MOZART : REQUIEM;2024-04-30;orchestre symphonique;150;Jean-Charles Dunand;NULL;22;0;150;symphonique
 Zénith;Little Big Concert;2024-08-22;spéciale;1046;NULL;NULL;49;1;90;rock
-Salle Pleyel;Tchaikovsky Symphonie n°6;2024-06-10;orchestre symphonique;78;Klaus Mäkelä;Alexandre Kantorow;75;0;120;classique
-Opéra Garnier;Debussy Clair de Lune;2024-07-15;orchestre symphonique;200;Laurence Equilbey;NULL;80;1;75;classique
-Theatre des Champs Elysées;Schubert Symphonie n°8;2024-09-20;orchestre symphonique;300;Daniel Harding;NULL;60;0;90;classique
-Opéra Bastille;Stravinsky Le Sacre du Printemps;2024-11-25;orchestre symphonique;50;Valery Gergiev;NULL;100;0;105;classique
-Salle Gaveau;Haendel Le Messie;2024-12-10;chorale et orchestre;100;William Christie;NULL;55;0;160;baroque
-Philharmonie de Paris;Vivaldi Les Quatre Saisons;2024-10-05;orchestre à cordes;500;Fabio Biondi;NULL;45;1;65;baroque
-Philharmonie de Paris;Rachmaninoff Concerto n°2;2024-11-15;orchestre symphonique;350;Vladimir Ashkenazy;Daniil Trifonov;95;0;100;classique
-Théâtre de la Ville;Chopin Nocturnes;2024-12-05;piano solo;400;NULL;Evgeny Kissin;70;0;60;classique
-Konzerthaus de Vienne;Mahler Symphonie n°5;2024-09-30;orchestre symphonique;600;Riccardo Chailly;NULL;85;1;75;romantique
-Konzerthaus de Berlin;Grieg Concerto en la mineur;2024-10-15;orchestre symphonique;200;Mariss Jansons;Leif Ove Andsnes;75;0;70;classique
+Salle Pleyel;Tchaikovsky Symphonie n°6;2024-06-10;orchestre symphonique;78;Klaus Mäkelä;Alexandre Kantorow;75;0;120;symphonique
+Opéra Garnier;Debussy Clair de Lune;2024-07-15;orchestre symphonique;200;Laurence Equilbey;NULL;80;1;75;symphonique
+Theatre des Champs Elysées;Schubert Symphonie n°8;2024-09-20;orchestre symphonique;300;Daniel Harding;NULL;60;0;90;symphonique
+Opéra Bastille;Stravinsky Le Sacre du Printemps;2024-11-25;orchestre symphonique;50;Valery Gergiev;NULL;100;0;105;symphonique
+Salle Gaveau;Haendel Le Messie;2024-12-10;orchestre symphonique;100;William Christie;NULL;55;0;160;symphonique
+Philharmonie de Paris;Vivaldi Les Quatre Saisons;2024-10-05;orchestre à corde;500;Fabio Biondi;NULL;45;1;65;symphonique
+Philharmonie de Paris;Rachmaninoff Concerto n°2;2024-11-15;orchestre symphonique;350;Vladimir Ashkenazy;Daniil Trifonov;95;0;100;symphonique
+Théâtre de la Ville;Chopin Nocturnes;2024-12-05;soliste;400;NULL;Evgeny Kissin;70;0;60;symphonique
+Konzerthaus de Vienne;Mahler Symphonie n°5;2024-09-30;orchestre symphonique;600;Riccardo Chailly;NULL;85;1;75;symphonique
+Konzerthaus de Berlin;Grieg Concerto en la mineur;2024-10-15;orchestre symphonique;200;Mariss Jansons;Leif Ove Andsnes;75;0;70;symphonique
 Philharmonie de Paris;Hans Zimmer Live;2024-05-25;orchestre symphonique;500;Hans Zimmer;NULL;80;1;90;spéciale
 Philharmonie de Paris;John Williams en concert;2024-06-10;orchestre symphonique;450;John Williams;NULL;100;1;95;spéciale
 Philharmonie de Paris;Lindsey Stirling Live;2024-07-20;soliste;400;NULL;Lindsey Stirling;60;1;75;électro

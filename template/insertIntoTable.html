@@ -15,7 +15,7 @@
                         </select>
                     % else:
                         % if header["name"] == "date_composition":
-                            <input type="text" class="form-control" id="${header['name']}" name="${header['name']}" size="4" placeholder="0000" pattern="[0-9]{4}" required>
+                            <input type="text" class="form-control" id="${header['name']}" name="${header['name']}" size="4" placeholder="0000" pattern="[0-9]{4}">
                         % else:
                             % if header["name"] == "formation":
                                 <select class="form-control" id="${header['name']}" name="${header['name']}" required>
@@ -39,9 +39,9 @@
                                     </select>
                                     % else:
                                         % if "date" in header["name"]:
-                                            <input type="date" id="${header['name']}" name="${header['name']}" class="form-control"required>
+                                            <input type="date" id="${header['name']}" name="${header['name']}" class="form-control">
                                         % else:
-                                            <input type="text" class="form-control" id="${header['name']}" name="${header['name']}" required>
+                                            <input type="text" class="form-control" id="${header['name']}" name="${header['name']}">
                                         % endif
                                     % endif
                                 % endif
